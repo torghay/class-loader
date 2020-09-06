@@ -1,0 +1,15 @@
+{
+    "name": "torghay/class-loader",
+    "authors": [
+        {
+            "name": "aihe",
+            "email": "torghay@howzhi.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Torghay\\ClassLoader\\":"src"
+        }
+    }
+}
