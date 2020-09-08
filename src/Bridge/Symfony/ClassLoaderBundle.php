@@ -3,6 +3,7 @@
 namespace Torghay\ClassLoader\Bridge\Symfony;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Torghay\ClassLoader\Bridge\Symfony\Component\Debug\DebugClassLoader;
 use Torghay\ClassLoader\ClassLoader;
 
 class ClassLoaderBundle extends Bundle
@@ -15,12 +16,22 @@ class ClassLoaderBundle extends Bundle
             return;
         }
 
-        $classMap = $this->container->getParameter('classmap');
-        if (empty($classMap)) {
+        if (!is_array($classMap = $this->container->getParameter('classmap'))) {
             return;
         }
 
-        ClassLoader::$classMap = $classMap;
-        ClassLoader::init();
+        if ('prod' == $this->container->get('kernel')->getEnvironment()) {
+            ClassLoader::$classMap = $classMap;
+            ClassLoader::init();
+
+            return;
+        }
+
+        if ('dev' == $this->container->get('kernel')->getEnvironment()) {
+            DebugClassLoader::$classMap = $classMap;
+            DebugClassLoader::enable();
+
+            return;
+        }
     }
 }

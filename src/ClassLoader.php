@@ -9,14 +9,14 @@ class ClassLoader
     public static $classMap = array();
 
     /**
-     * @var \Composer\Autoload\ClassLoader
+     * @var ComposerClassLoader
      */
     protected $composerClassLoader;
 
     public function __construct(ComposerClassLoader $classLoader)
     {
         $this->setComposerClassLoader($classLoader);
-        
+
         if (!empty(self::$classMap)) {
             $classLoader->addClassMap(self::$classMap);
         }
@@ -35,11 +35,9 @@ class ClassLoader
     {
         $loaders = spl_autoload_functions();
 
-        // Proxy the composer class loader
         foreach ($loaders as &$loader) {
             $unregisterLoader = $loader;
             if (is_array($loader) && $loader[0] instanceof ComposerClassLoader) {
-                /** @var ComposerClassLoader $composerClassLoader */
                 $composerClassLoader = $loader[0];
                 $loader[0] = new static($composerClassLoader);
             }
@@ -48,7 +46,6 @@ class ClassLoader
 
         unset($loader);
 
-        // Re-register the loaders
         foreach ($loaders as $loader) {
             spl_autoload_register($loader, true, false);
         }
