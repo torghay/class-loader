@@ -1,5 +1,9 @@
 {
     "name": "torghay/class-loader",
+    "description": "Dynamic configuration of composer class mapping",
+    "license": "MIT",
+    "keywords": ["Symfony ClassLoader", "ClassLoader"],
+    "version": "1.0.0",
     "authors": [
         {
             "name": "torghay",
