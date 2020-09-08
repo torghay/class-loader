@@ -2,24 +2,25 @@
 
 namespace Torghay\ClassLoader\Bridge\Symfony;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Torghay\ClassLoader\ClassLoader;
 
 class ClassLoaderBundle extends Bundle
 {
-    public function build(ContainerBuilder $container)
+    public function boot()
     {
-        parent::build($container);
+        parent::boot();
 
-        if (!$container->hasParameter('classmaps')) {
+        if (!$this->container->hasParameter('classmap')) {
             return;
         }
 
-        $classMaps = $container->getParameter('classmaps');
-        if (empty($classMaps)) {
+        $classMap = $this->container->getParameter('classmap');
+        if (empty($classMap)) {
             return;
         }
 
-        var_dump($classMaps);die;
+        ClassLoader::$classMap = $classMap;
+        ClassLoader::init();
     }
 }
