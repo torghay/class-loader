@@ -10,10 +10,19 @@
             "email": "torghay@yeah.net"
         }
     ],
-    "require": {},
+    "require": {
+        "php": "*"
+    },
     "autoload": {
         "psr-4": {
-            "Torghay\\ClassLoader\\":"src"
+            "Torghay\\ClassLoader\\":"src",
+            "Test\\": "./test/"
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit -c phpunit.xml --colors=always"
     }
 }

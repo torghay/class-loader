@@ -22,7 +22,7 @@ class ClassLoader
         }
     }
 
-    public function loadClass(string $class): void
+    public function loadClass(string $class)
     {
         $path = $this->locateFile($class);
 
@@ -31,7 +31,7 @@ class ClassLoader
         }
     }
 
-    public static function init(): void
+    public static function init()
     {
         $loaders = spl_autoload_functions();
 
@@ -63,7 +63,7 @@ class ClassLoader
         return $this->composerClassLoader;
     }
 
-    protected function locateFile(string $className): ?string
+    protected function locateFile(string $className)
     {
         $file = $this->getComposerClassLoader()->findFile($className);
 
